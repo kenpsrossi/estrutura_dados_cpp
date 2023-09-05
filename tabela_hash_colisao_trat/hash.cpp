@@ -32,19 +32,24 @@ using namespace std;
     }
 
     void Hash::inserir(Aluno aluno)
-    {
+    {   
+        if (estacheio()){
+            cout << "A tabela Hash esta cheia!\n";
+            cout << "O elemento nao pode ser inserido\n";
+        } else{
         int local = FuncaoHash(aluno);
         while (estrutura[local].obterRa() > 0){
             local = (local+1) % max_posicoes;
         }
         estrutura[local] = aluno;
         quant_itens++;
+        }
     }
 
     void Hash::deletar(Aluno aluno)
     {
         int local = FuncaoHash(aluno);
-        teste = false;
+        bool teste = false;
         while (estrutura[local].obterRa() != -1){
             if (estrutura[local].obterRa() == aluno.obterRa()){
                 cout << "Elemento Removido!\n";
