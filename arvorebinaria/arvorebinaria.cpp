@@ -4,17 +4,26 @@
 
 using namespace std;
 
-
-    ArvoreBinariadeBusca::ArvoreBinariadeBusca()//construtor
+    ArvoreBinariadeBusca::ArvoreBinariadeBusca() // construtor
     {
         raiz = NULL;
     }
 
-    ArvoreBinariadeBusca::~ArvoreBinariadeBusca()//destrutor
-    {}
+    ArvoreBinariadeBusca::~ArvoreBinariadeBusca() // destrutor
+    {
+        deletarArvore(raiz);
+    }
 
     void ArvoreBinariadeBusca::deletarArvore(No* Noatual)
-    {}
+    {
+        if (Noatual != NULL){
+            deletarArvore(Noatual->filhoesquerda);
+
+            deletarArvore(Noatual->filhodireita);
+
+            delete Noatual;
+        }
+    }
 
     No* ArvoreBinariadeBusca::obterRaiz()
     {
@@ -34,14 +43,14 @@ using namespace std;
             return false;
         } catch(bad_alloc exception){
             return true;
-        }        
+        }
     }
 
     void ArvoreBinariadeBusca::inserir(Aluno aluno)
     {
         if (estacheio()){
-            cout << "Aarvore esta cheia!\n";
-            cout << "Nao foi possivel inserir este elemento\n";
+            cout << "A Arvore esta cheia!\n";
+            cout << "Nao foi possivel inserir este elemento!\n";
         } else{
             No* NoNovo = new No;
             NoNovo->aluno = aluno;
@@ -52,25 +61,25 @@ using namespace std;
             } else{
                 No* temp = raiz;
                 while (temp != NULL){
-                    if (aluno.obterRa() < temp->aluno.obterRa){
+                    if (aluno.obterRa() < temp->aluno.obterRa()){
                         if (temp->filhoesquerda == NULL){
                             temp->filhoesquerda = NoNovo;
                             break;
                         } else{
                             temp = temp->filhoesquerda;
                         }
-                   } else{
-                       if (temp->filhodireita == NULL){
-                           temp->filhodireita = NoNovo;
-                           break;
-                       } else{
+                    } else{
+                        if (temp->filhodireita == NULL){
+                            temp->filhodireita = NoNovo;
+                            break;
+                        } else{
                             temp = temp->filhodireita;
-                       }
-                  }
-             }
+                        }
+                    }
+                }
+            }
         }
     }
-}
 
     void ArvoreBinariadeBusca::remover(Aluno aluno)
     {
@@ -88,7 +97,7 @@ using namespace std;
         }
     }
 
-    void ArvoreBinariadeBusca::deletarNo(No* noatual)
+    void ArvoreBinariadeBusca::deletarNo(No*& noatual)
     {
         No* temp = noatual;
         if (noatual->filhoesquerda == NULL){
@@ -113,7 +122,6 @@ using namespace std;
         }
         AlunoSucessor = temp->aluno;
     }
-   
 
     void ArvoreBinariadeBusca::buscar(Aluno& aluno, bool& busca)
     {
@@ -133,10 +141,37 @@ using namespace std;
     }
 
     void ArvoreBinariadeBusca::imprimirpreordem(No* Noatual)
-    {}
+    {
+        if (Noatual != NULL){
+            cout << Noatual->aluno.obterNome() << ": ";
+            cout << Noatual->aluno.obterRa() << endl;
+
+            imprimirpreordem(Noatual->filhoesquerda);
+
+            imprimirpreordem(Noatual->filhodireita);
+        }
+    }
 
     void ArvoreBinariadeBusca::imprimiremordem(No* Noatual)
-    {}
+    {
+        if (Noatual != NULL){
+            imprimiremordem(Noatual->filhoesquerda);
+
+            cout << Noatual->aluno.obterNome() << ": ";
+            cout << Noatual->aluno.obterRa() << endl;
+
+            imprimiremordem(Noatual->filhodireita);            
+        }
+    }
 
     void ArvoreBinariadeBusca::imprimirposordem(No* Noatual)
-    {}
+    {
+        if (Noatual != NULL){
+            imprimirposordem(Noatual->filhoesquerda);
+
+            imprimirposordem(Noatual->filhodireita);
+
+            cout << Noatual->aluno.obterNome() << ": ";
+            cout << Noatual->aluno.obterRa() << endl;            
+        }
+    }

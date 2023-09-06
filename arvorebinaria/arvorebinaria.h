@@ -7,7 +7,7 @@ struct No{
     No* filhodireita;
 };
 
-class ArvoreBinariadeBusca{// ou BTS = Binary Search Tree
+class ArvoreBinariadeBusca{ //BST = Binary Search Tree
     private:
     No* raiz;
 
@@ -21,7 +21,7 @@ class ArvoreBinariadeBusca{// ou BTS = Binary Search Tree
     void inserir(Aluno aluno);
     void remover(Aluno aluno);
     void removerbusca(Aluno aluno, No*& noatual);
-    void deletarNo(No* noatual);
+    void deletarNo(No*& noatual);
     void obterSucessor(Aluno& AlunoSucessor, No* temp);
     void buscar(Aluno& aluno, bool& busca);
     void imprimirpreordem(No* Noatual);
