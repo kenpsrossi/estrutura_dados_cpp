@@ -20,6 +20,9 @@ class ArvoreBinariadeBusca{// ou BTS = Binary Search Tree
     bool estacheio();
     void inserir(Aluno aluno);
     void remover(Aluno aluno);
+    void removerbusca(Aluno aluno, No*& noatual);
+    void deletarNo(No* noatual);
+    void obterSucessor(Aluno& AlunoSucessor, No* temp);
     void buscar(Aluno& aluno, bool& busca);
     void imprimirpreordem(No* Noatual);
     void imprimiremordem(No* Noatual);

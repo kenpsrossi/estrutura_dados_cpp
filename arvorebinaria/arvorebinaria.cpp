@@ -70,9 +70,50 @@ using namespace std;
              }
         }
     }
+}
 
     void ArvoreBinariadeBusca::remover(Aluno aluno)
-    {}
+    {
+        removerbusca(aluno, raiz);
+    }
+
+    void ArvoreBinariadeBusca::removerbusca(Aluno aluno, No*& noatual)
+    {
+        if (aluno.obterRa() < noatual->aluno.obterRa()){
+            removerbusca(aluno, noatual->filhoesquerda);
+        } else if (aluno.obterRa() > noatual->aluno.obterRa()){
+            removerbusca(aluno, noatual->filhodireita);
+        } else{
+            deletarNo(noatual);
+        }
+    }
+
+    void ArvoreBinariadeBusca::deletarNo(No* noatual)
+    {
+        No* temp = noatual;
+        if (noatual->filhoesquerda == NULL){
+            noatual = noatual->filhodireita;
+            delete temp;
+        } else if (noatual->filhodireita == NULL){
+            noatual = noatual->filhoesquerda;
+            delete temp;
+        } else{
+            Aluno AlunoSucessor;
+            obterSucessor(AlunoSucessor, noatual);
+            noatual->aluno = AlunoSucessor;
+            removerbusca(AlunoSucessor, noatual->filhodireita);
+        }
+    }
+
+    void ArvoreBinariadeBusca::obterSucessor(Aluno& AlunoSucessor, No* temp)
+    {
+        temp = temp->filhodireita;
+        while (temp->filhoesquerda != NULL){
+            temp = temp->filhoesquerda;
+        }
+        AlunoSucessor = temp->aluno;
+    }
+   
 
     void ArvoreBinariadeBusca::buscar(Aluno& aluno, bool& busca)
     {
